@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>div style</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+        .top, .bottom {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+            flex-grow: 1;
+        }
+        .middle {
+            width: 100%;
+            height: 250px;
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .middle .box {
+            flex-grow: 1;
+            height: 100%;
+            margin: 0 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            outline: 2px solid black;
+            border-radius: 6px;
+            box-shadow: 4px 4px 2px black;
+            transition: 500ms;
+        }
+        .middle .box:hover {
+            background-color: #eee;
+            transition: 500ms;
+        }
+        .box1 {
+            background-color: #FFD700;
+        }
+        .box2 {
+            background-color: #FF6347;
+        }
+        .box3 {
+            background-color: #32CD32;
+        }
+        .top {
+            background-color: #00ADEF;
+        }
+        .bottom {
+            background-color: #ADD8E6;
+        }
+        .middle {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top">cima</div>
+        <div class="middle">
+            <div class="box box1">box 1</div>
+            <div class="box box2">box 2</div>
+            <div class="box box3">box 3</div>
+        </div>
+        <div class="bottom">baixo</div>
+    </div>
+</body>
+</html>
