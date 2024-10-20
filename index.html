@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layouts</title>
+    <meta name="author" content="Eden Miranda de Souza Honorato">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        h1, h5, h6 {
+            text-align: center;
+            color: #191919;
+        }
+        
+        button {
+            font-family: 'Montserrat', sans-serif;
+            color: #f0f0f0;
+            padding: 6px;
+            width: 100px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+        .float {
+            background-color: #D1BBA1;
+            transition: background-color 0.3s;
+        }
+
+        .float:hover {
+            background-color: #A89A8A;
+        }
+
+        .flex {
+            background-color: #A8D8D1;
+            transition: background-color 0.3s;
+        }
+
+        .flex:hover {
+            background-color: #7FB2B0;
+        }
+
+        .grid {
+            background-color: #E1A6B8;
+            transition: background-color 0.3s;
+        }
+
+        .grid:hover {
+            background-color: #B87D8F;
+        }
+
+        .menu {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 520px;
+            height: 520px;
+            box-sizing: border-box;
+            margin: 0 auto;
+            display: none;
+            padding: 10px;
+        }
+
+        
+        /* Layout usando float */
+        .float-container {
+            height: 100%;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .float-box {
+            width: 150px;
+            height: 150px;
+            float: left;
+            margin: 5px;
+        }
+        
+        .float-box:nth-child(1) { background-color: #393D3F; }
+        .float-box:nth-child(2) { background-color: #555A5C; }
+        .float-box:nth-child(3) { background-color: #D5BBB1; }
+        .float-box:nth-child(4) { background-color: #B3A593; }
+        .float-box:nth-child(5) { background-color: #9CC4B2; }
+        .float-box:nth-child(6) { background-color: #87A9A3; }
+        .float-box:nth-child(7) { background-color: #C98CA7; }
+        .float-box:nth-child(8) { background-color: #B08F99; }
+        .float-box:nth-child(9) { background-color: #E76D83; }
+
+
+        /* Layout usando flex */
+        .flex-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flex-header {
+            width: 100%;
+            height: 150px;
+            background-color: #D5BBB1;
+            margin-bottom: 10px;
+        }
+
+        .flex-content {
+            display: flex;
+            width: 100%;
+            height: calc(100% - 160px);
+            justify-content: space-between;
+        }
+
+        .flex-column {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .flex-column:last-child {
+            margin-right: 0;
+        }
+
+        .flex-column:nth-child(1) { background-color: #9CC4B2; }
+        .flex-column:nth-child(2) { background-color: #C98CA7; }
+        .flex-column:nth-child(3) { background-color: #E76D83; }
+
+
+        /* Layout usando grid */
+        .grid-container {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: 1fr 2fr;
+            gap: 10px;
+        }
+
+        .grid-box1 { grid-column: 1 / span 1; grid-row: 1 / span 1; background-color: #D5BBB1; }
+        .grid-box2 { grid-column: 2 / span 1; grid-row: 1 / span 1; background-color: #9CC4B2; }
+        .grid-box3 { grid-column: 1 / span 1; grid-row: 2 / span 1; background-color: #C98CA7; }
+        .grid-box4 { grid-column: 2 / span 1; grid-row: 2 / span 1; background-color: #E76D83; }
+    </style>
+
+    <script>
+        function showLayout(layout) {
+            document.querySelectorAll('.container').forEach(container => {
+                container.style.display = 'none';
+            });
+
+            document.getElementById(layout).style.display = 'block';
+        }
+    </script>
+
+</head>
+<body>
+
+    <h1>Layouts</h1>
+
+    <div class="menu">
+        <button class="float" onclick="showLayout('float')">Float</button>
+        <button class="flex" onclick="showLayout('flex')">Flexbox</button>
+        <button class="grid" onclick="showLayout('grid')">Grid</button>
+    </div>
+
+    <div class="container" id="float">
+        <div class="float-container">
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+            <div class="float-box"></div>
+        </div>
+    </div>
+
+    <div class="container" id="flex">
+        <div class="flex-container">
+            <div class="flex-header"></div>
+            <div class="flex-content">
+                <div class="flex-column"></div>
+                <div class="flex-column"></div>
+                <div class="flex-column"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="grid">
+        <div class="grid-container">
+            <div class="grid-box grid-box1"></div>
+            <div class="grid-box grid-box2"></div>
+            <div class="grid-box grid-box3"></div>
+            <div class="grid-box grid-box4"></div>
+        </div>
+    </div>
+
+    <h5>DESENVOLVIMENTO WEB FRONT-END</h5>
+    <h6>Feito por Eden Honorato</h6>
+
+    <script>
+        showLayout('float');
+    </script>
+
+</body>
+</html>
