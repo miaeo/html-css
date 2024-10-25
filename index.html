@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Média</title>
+    <meta name="author" content="Eden Miranda de Souza Honorato">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #393D3F;
+            color: #393D3F;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #f8ced8;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 380px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #E76D83;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        h6 {
+           color: #7F7F7F;
+           margin-top: 30px;
+           font-size: 0.6em;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        button.unit-button {
+            background-color: #C98CA7;
+            color: #393D3F;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button.unit-button:hover {
+            background-color: #E76D83;
+            transition: 0.3s;
+        }
+
+        select, input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #D5BBB1;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Merriweather', serif;
+        }
+
+        #notas-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .nota-input {
+            flex: 1 1 calc(50% - 10px);
+            box-sizing: border-box;
+        }
+
+        button {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #C98CA7;
+            color: #393D3F;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #E76D83;
+            transition: 0.3s;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #393D3F;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #E76D83;
+        }
+
+        .status-message {
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: none;
+        }
+        .aprovado {
+            color: #69b995 
+        }
+
+        .reprovado {
+            color: #E76D83;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Média</h1>
+        
+        <label>Selecione o número de unidades:</label>
+        <div class="button-container">
+            <button class="unit-button" onclick="selecionarUnidades(4)">4 unidades</button>
+            <button class="unit-button" onclick="selecionarUnidades(8)">8 unidades</button>
+        </div>
+        
+        <div id="notas-container"></div>
+        
+        <label for="prova">Nota da Prova Presencial:</label>
+        <input type="number" id="prova" placeholder="Nota presencial" min="0" max="10" step="0.1" required>
+
+        <button type="button" onclick="calcularNotaFinal()">Calcular Nota Final</button>
+        
+        <div id="resultado" class="result"></div>
+        <div id="status" class="status-message"></div>
+        <h6>DESENVOLVIMENTO WEB FRONT-END<br><br>Feito por Eden Honorato</h6>
+    </div>
+
+    <script>
+        function selecionarUnidades(unidades) {
+            exibirCamposNotas(unidades);
+        }
+
+        function exibirCamposNotas(unidades) {
+            const notasContainer = document.getElementById('notas-container');
+            notasContainer.innerHTML = ''; 
+
+            for (let i = 1; i <= unidades; i++) {
+                const input = document.createElement('input');
+                input.type = 'number';
+                input.id = `nota${i}`;
+                input.placeholder = `Nota ${i}`;
+                input.min = 0;
+                input.max = 10;
+                input.step = 0.1;
+                input.className = 'nota-input';
+                input.required = true;
+                notasContainer.appendChild(input);
+            }
+        }
+
+        function calcularNotaFinal() {
+            const unidades = document.getElementsByClassName('nota-input').length;
+            let somaNotas = 0;
+            let notasValidas = true;
+
+            for (let i = 1; i <= unidades; i++) {
+                const nota = parseFloat(document.getElementById(`nota${i}`).value);
+                if (isNotaValida(nota)) {
+                    somaNotas += nota;
+                } else {
+                    notasValidas = false;
+                    break;
+                }
+            }
+
+            const notaProva = parseFloat(document.getElementById('prova').value);
+
+            if (!notasValidas || !isNotaValida(notaProva)) {
+                exibirErro('Insira valores entre 0 e 10.');
+                return;
+            }
+
+            const mediaAvaliacoes = somaNotas / unidades;
+            const notaFinal = ((mediaAvaliacoes * 4) + (notaProva * 6)) / 10;
+            
+            exibirResultado(notaFinal.toFixed(1), notaFinal);
+        }
+
+        function isNotaValida(nota) {
+            return nota >= 0 && nota <= 10;
+        }
+
+        function exibirResultado(notaFinal, nota) {
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.textContent = `Sua nota final é: ${notaFinal}`;
+            resultadoDiv.classList.remove('error');
+
+            const statusDiv = document.getElementById('status');
+            if (nota >= 6.0) {
+                statusDiv.textContent = "Aprovado";
+                statusDiv.className = 'status-message aprovado';
+                statusDiv.style.display = 'block';
+            } else {
+                statusDiv.textContent = "Em recuperação";
+                statusDiv.className = 'status-message reprovado';
+                statusDiv.style.display = 'block';
+            }
+        }
+
+        function exibirErro(mensagem) {
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.textContent = mensagem;
+            resultadoDiv.classList.add('error');
+
+            const statusDiv = document.getElementById('status');
+            statusDiv.style.display = 'none';
+        }
+
+        window.onload = () => exibirCamposNotas(4);
+    </script>
