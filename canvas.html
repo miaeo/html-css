@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Eden Miranda de Souza Honorato">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <title>Canvas HTML</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 2px solid #f9f9f9;
+            background-color: #f8f1f1;
+        }
+        button {
+            font-family: 'Montserrat', sans-serif;
+            color: #f0f0f0;
+            padding: 6px;
+            width: 200px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            margin: 20px 6px;
+            cursor: pointer;
+            background-color: #8C5A43;
+        }
+        button:hover {
+            transition: 0.3s;
+            background-color: #BC8B6C;
+        }
+        h5, h6, h2 {
+            text-align: center;
+            color: #191919;
+        }
+    </style>
+</head>
+<body>
+    <h2>Desenhando com Canvas HTML</h2>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <button onclick="drawNextPart()">Comece aqui!</button>
+
+    <footer>
+        <h5>DESENVOLVIMENTO WEB FRONT-END</h5>
+        <h6>Feito por Eden Honorato</h6>
+    </footer>
+
+    <script>
+        let step = 0;
+
+         /* Função principal responsável por desenhar a próxima 
+         parte do cachorro com base no valor de 'step' */
+        function drawNextPart() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+
+            /* A cada chamada, é desenhada mais uma parte do cachorro, 
+            e o botão interativo acompanha a cada clique
+            do usuário no processo de construção do desenho */
+            switch (step) {
+                case 0:
+                    desenharCauda(ctx);
+                    document.querySelector('button').innerText = 'Corpo';
+                    break;
+                case 1:
+                    desenharCorpo(ctx);
+                    document.querySelector('button').innerText = 'Coleira';
+                    break;
+                case 2:
+                    desenharColeira(ctx);
+                    document.querySelector('button').innerText = 'Cabeça';
+                    break;
+                case 3:
+                    desenharCabeca(ctx);
+                    document.querySelector('button').innerText = 'Orelhas';
+                    break;
+                case 4:
+                    desenharOrelhas(ctx);
+                    document.querySelector('button').innerText = 'Olhos';
+                    break;
+                case 5:
+                    desenharOlhos(ctx);
+                    document.querySelector('button').innerText = 'Nariz';
+                    break;
+                case 6:
+                    desenharNariz(ctx);
+                    document.querySelector('button').innerText = 'Boca';
+                    break;
+                case 7:
+                    desenharBoca(ctx);
+                    document.querySelector('button').innerText = 'Bochechas';
+                    break;
+                case 8:
+                    desenharBochecha(ctx);
+                    document.querySelector('button').innerText = 'Detalhes';
+                    break;
+                case 9:
+                    desenharBrilho(ctx);
+                    document.querySelector('button').innerText = 'Patas traseiras';
+                    break;
+                case 10:
+                    desenharPatasTras(ctx);
+                    document.querySelector('button').innerText = 'Patas dianteiras';
+                    break;
+                case 11:
+                    desenharPatasFrente(ctx);
+                    document.querySelector('button').innerText = 'Desenho Completo!';
+                    document.querySelector('button').disabled = true;
+                    break;
+            }
+            step++;
+        }
+
+        /* Funções que desenham partes específicas do cachorro no canvas */
+        function desenharCauda(ctx) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            ctx.strokeStyle = '#b5856d';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(247, 285);
+            ctx.quadraticCurveTo(330, 250, 290, 220);
+            ctx.stroke();
+        }
+
+        function desenharCorpo(ctx) {
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.ellipse(155, 250, 25, 12, -Math.PI / 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(245, 250, 25, 12, Math.PI / 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.ellipse(200, 255, 58, 68, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#d3a17e';
+            ctx.beginPath();
+            ctx.ellipse(200, 255, 55, 65, 0, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharColeira(ctx) {
+            ctx.fillStyle = '#E76D83';
+            ctx.beginPath();
+            ctx.ellipse(200, 200, 30, 7, 0, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharCabeca(ctx) {
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.arc(200, 150, 53, 3, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#d3a17e';
+            ctx.beginPath();
+            ctx.arc(200, 150, 50, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharOrelhas(ctx) {
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.ellipse(145, 140, 20, 40, Math.PI / 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(255, 140, 20, 40, -Math.PI / 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharOlhos(ctx) {
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.arc(175, 155, 9, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(225, 155, 9, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharNariz(ctx) {
+            ctx.fillStyle = '#333';
+            ctx.beginPath();
+            ctx.arc(200, 170, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharBoca(ctx) {
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(190, 175);
+            ctx.quadraticCurveTo(195, 185, 200, 175);
+            ctx.quadraticCurveTo(205, 185, 210, 175);
+            ctx.stroke();
+        }
+
+        function desenharBochecha(ctx) {
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.arc(175, 170, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(170, 178, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(180, 178, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(225, 170, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(220, 178, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(230, 178, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharBrilho(ctx) {
+            ctx.fillStyle = '#FFF';
+            ctx.beginPath();
+            ctx.arc(170, 152, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(220, 152, 2, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.arc(180, 157, 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(230, 157, 5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharPatasTras(ctx) {
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.ellipse(145, 311, 23, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(255, 311, 23, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#C79877';
+            ctx.beginPath();
+            ctx.ellipse(147, 290, 35, 15, Math.PI / 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(253, 290, 35, 15, -Math.PI / 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function desenharPatasFrente(ctx) {
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.ellipse(182, 279, 15, 52, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.ellipse(218, 279, 15, 52, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#d3a17e';
+            ctx.beginPath();
+            ctx.ellipse(182, 279, 13, 51, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.ellipse(218, 279, 13, 51, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#b5856d';
+            ctx.beginPath();
+            ctx.ellipse(180, 323, 16, 8, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(220, 323, 16, 8, 0, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#d3a17e';
+            ctx.beginPath();
+            ctx.rect(168, 210, 35, 35);
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.rect(202, 210, 35, 35);
+            ctx.fill();
+        }
+    </script>
+</body>
+</html>
