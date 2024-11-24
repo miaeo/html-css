@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookies</title>
+    <meta name="author" content="Eden Miranda de Souza Honorato">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Merriweather:wght@700&display=swap');
+        :root {
+        --cor-texto: #f4f4f4;
+        --cor-primaria: #263238;
+        --rosa: #E76D83;
+        --verde: #4AD894;
+    }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cor-primaria);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: var(--cor-texto);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-family: 'Merriweather', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cor-primaria);
+        }
+
+        h1 i {
+            margin-left: 10px;
+            color: var(--cor-primaria);
+            font-size: 1.5rem;
+        }
+
+        label {
+            color: var(--rosa);
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Merriweather', sans-serif;
+        }
+
+        button {
+            background-color: var(--rosa);
+            color: var(--cor-texto);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--verde);
+            transition: background-color 0.3s;
+        }
+
+        #cookieValue {
+            color: var(--cor-primaria);
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        footer {
+            border-top: 2px solid var(--rosa);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--cor-texto);
+            color: var(--cor-primaria);
+            text-align: center;
+            padding: 1rem 0;
+            }
+
+        footer h5, footer h6 {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        footer h5 {
+            font-size: 1rem;
+        }
+
+        footer h6 {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1><i class='bx bxs-cookie bx-tada bx-rotate-90'></i>
+            &nbspCookies
+            <i class='bx bxs-cookie bx-tada bx-rotate-90'></i>
+        </h1>
+        <form id="cookieForm">
+            <label for="cookieInput">Digite o valor do cookie:</label>
+            <input type="text" id="cookieInput" required>
+            <button type="button" onclick="criarCookie()">Criar Cookie</button>
+        </form>
+        <div id="cookieValue">O valor do cookie será exibido aqui.</div>
+    </div>
+
+    <footer>
+        <h5>DESENVOLVIMENTO WEB FRONT-END</h5>
+        <h6>Feito por Eden Honorato</h6>
+    </footer>
+
+    <script>
+        function setCookie(nome, valor, dias) {
+            const data = new Date();
+            data.setTime(data.getTime() + (dias * 24 * 60 * 60 * 1000));
+            const expira = "expires=" + data.toUTCString();
+            document.cookie = nome + "=" + encodeURIComponent(valor) + ";" + expira + ";path=/";
+        }
+
+        function getCookie(nome) {
+            const nomeIgual = nome + "=";
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.indexOf(nomeIgual) === 0) {
+                    return decodeURIComponent(cookie.substring(nomeIgual.length, cookie.length));
+                }
+            }
+            return "";
+        }
+
+        function criarCookie() {
+            const input = document.getElementById("cookieInput");
+            const valor = input.value.trim();
+            if (valor) {
+                setCookie("meuCookie", valor, 7);
+                const valorCookie = getCookie("meuCookie");
+                document.getElementById("cookieValue").innerHTML = valorCookie;
+                input.value = "";
+            } else {
+                alert("Insira um valor.");
+            }
+        }
+    </script>
+</body>
+</html>
