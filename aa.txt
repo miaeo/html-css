@@ -1,6 +1,0 @@
-.container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Define três colunas de tamanhos iguais */
-  grid-template-rows: repeat(2, auto); /* Define duas linhas com altura automática */
-  gap: 10px; /* Espaçamento entre os itens do grid */
-}
